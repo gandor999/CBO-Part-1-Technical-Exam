@@ -357,12 +357,12 @@ function App() {
 
             {
               (isActive) ?
-                  <Button onClick={register} className="mt-4" variant="primary" type="submit">
-                    Submit
+                  <Button onClick={register} className="mt-4" variant="success" type="submit">
+                    Register
                   </Button>
               :
                   <Button onClick={register} className="mt-4" variant="secondary" type="submit" disabled>
-                    Submit
+                    Register
                   </Button>
             } 
           </Form>
