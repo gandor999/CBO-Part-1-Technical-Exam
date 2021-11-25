@@ -233,7 +233,7 @@ function App() {
           <h4>Software Developer Technical Exam for CBO Part 1</h4>
           <h5>Applicant: Geodor Ruales</h5>
         </div>
-        <div className="d-flex justify-content-center align-items-start col-md col-12">
+        <div className="d-md-flex justify-content-center align-items-start col-md col-12">
           <Form className="p-5 m-md-5 d-flex justify-content-center flex-column col-md col-12">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address </Form.Label>
@@ -367,7 +367,7 @@ function App() {
             } 
           </Form>
 
-          <div className="p-5 m-md-5 ">
+          <div className="p-5 m-md-5">
           <h4 className="mb-5">Mock Database</h4>
           <Table responsive="sm">
             <thead>

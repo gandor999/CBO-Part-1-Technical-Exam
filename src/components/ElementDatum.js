@@ -190,9 +190,9 @@ export default function ElementDatum(prop){
 			<td>
 				<div className="mr-auto pb-2 pl-2">{prop.datum.email}</div>
 				
-				<Button size="sm" className="ml-4" variant="warning" onClick={removeThisElement}>Remove</Button>
+				<Button size="sm" className="ml-md-4" variant="warning" onClick={removeThisElement}>Remove</Button>
 
-				<Button size="sm" className="ml-3" variant="primary" onClick={handleShow}>
+				<Button size="sm" className="ml-md-3" variant="primary" onClick={handleShow}>
 				       Edit
 				     </Button>
 

@@ -13,19 +13,3 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-/*const name = "John Smith";
-const user = {
-  firstName: 'Jane',
-  lastName: 'Doe'
-};
-
-function formatName(user){
-  return user.firstName + ' ' + user.lastName;
-}
-
-const element = <h1>Hello, {formatName(user)}</h1>
-
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);*/
