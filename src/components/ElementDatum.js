@@ -16,6 +16,7 @@ export default function ElementDatum(prop){
 	const [upperExist, setUpperExist] = useState(false);
 	const [lowerExist, setLowerExist] = useState(false);
 	const [specialExist, setSpecialExist] = useState(false);
+	const [isValidEmail, setIsValidEmail] = useState(false);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [isNewUser, setIsNewUser] = useState(true);
@@ -68,6 +69,20 @@ export default function ElementDatum(prop){
  	    setSpecialExist(false);
  	  }
 
+ 	  if(
+ 	  	email.includes('@') && 
+ 	  	email[0] !== '' && 
+ 	  	email[email.length - 1] !== '@' && 
+ 	  	email.includes('.') && 
+ 	  	email[email.length - 1] !== '.' &&
+ 	  	email[email.indexOf('@') + 1] !== '.' &&
+ 	  	periodAfterAt()
+ 	  ){
+ 	    setIsValidEmail(true);
+ 	  } else {
+ 	    setIsValidEmail(false);
+ 	  }
+
  	}, [password, email, data])
 
  	useEffect(() => {
@@ -84,6 +99,20 @@ export default function ElementDatum(prop){
  	      setIsActive(false);
  	    }
  	}, [isMinMax, specialExist, password, numExist, upperExist, isNewUser, lowerExist])
+
+ 	
+
+ 	function periodAfterAt(){
+ 	  let result = false;
+
+ 	  for(let i = email.indexOf('@'); i < email.length; ++i){
+ 	      if(email[i] == '.'){
+ 	        result = true;
+ 	      }
+ 	  }
+
+ 	  return result;
+ 	}
 
 
  	function checkNum(){
@@ -213,15 +242,27 @@ export default function ElementDatum(prop){
 				       	     />
 				       	    <Form.Text className="text-muted p-2 pl-4">
 				       	      {
-				       	        (!isNewUser) ? 
-				       	          <div>
-				       	            <img src={wrongMark} /> Email is already in database
-				       	          </div>
-				       	          
+				       	        (isValidEmail) ?
+				       	          (isNewUser && email.length !== 0) ? 
+				       	            <div>
+				       	              <img src={checkMark} /> Email is available
+				       	            </div>
+				       	            
+				       	          :
+				       	            (email.length === 0 && !isValidEmail) ?
+				       	              <div>
+				       	                <img src={wrongMark} /> No email entered yet
+				       	              </div>
+				       	            :
+
+				       	              <div>
+				       	                <img src={wrongMark} /> Email is already in database
+				       	              </div>
 				       	        :
 				       	          <div>
-				       	            <img src={checkMark} /> Email is available
+				       	            <img src={wrongMark} /> Not a valid email
 				       	          </div>
+				       	        
 				       	      }
 				       	      {
 				       	        (!isMinMax) ? 
