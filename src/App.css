@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding:  0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.cardHighlight {
+  min-height:  100%;
+}
+
+.image {
+  cursor: pointer;
+}
+
+.title-card {
+  cursor: pointer;
+}
+
+.provider {
+  display: none;
+}
