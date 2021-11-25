@@ -1,17 +1,19 @@
 import { Fragment, useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Table } from 'react-bootstrap';
 import checkMark from './images/checkMark.png';
 import wrongMark from './images/wrongMark.png';
 import './App.css';
 import ElementDatum from './components/ElementDatum.js';
 import { Provider } from './Context.js'
+import Swal from 'sweetalert2';
+
 
 
 function App() {
   
   let specialChars = `~!@#$%^&*()_+=-{}[]|\\'":;?/><.,`
 
-  const [data, setData] = useState([{id: Math.floor(Math.random() * 1000), email: `admin@mail.com`, password: `1234567Aa`}]);
+  const [data, setData] = useState([{id: Math.floor(Math.random() * 10000), email: `admin@mail.com`, password: `1234567Aa`}]);
   const [isActive, setIsActive] = useState(true);
   const [isMinMax, setIsMinMax] = useState(false);
   const [numExist, setNumExist] = useState(false);
@@ -197,18 +199,42 @@ function App() {
   function register(e){
       e.preventDefault();
 
-      if(isNewUser){
-          setData(data => [...data, {id: Math.floor(Math.random() * 1000), email: email, password: password}]);
-      } else{
-        alert(`Email already exists`);
+      if(data.length < 10){
+        if(isNewUser){
+
+            setData(data => [...data, {id: Math.floor(Math.random() * 10000), email: email, password: password}]);
+            Swal.fire({
+            title: "Registration Successful",
+            icon: "success",
+            text: ""
+          })
+        } else{
+          Swal.fire({
+            title: "Duplicate Email",
+            icon: "error",
+            text: "Email already in database"
+          })
+        }
+      } else {
+        Swal.fire({
+            title: "Database Full",
+            icon: "error",
+            text: "Sorry..."
+          })
       }
+
+      
   }
 
 
   return (
       <Fragment>
-        <div className="row">
-          <Form className="p-5 m-md-5 d-flex justify-content-center flex-column col-md-6 col-12">
+        <div className="text-center p-4">
+          <h4>Software Developer Technical Exam for CBO Part 1</h4>
+          <h5>Applicant: Geodor Ruales</h5>
+        </div>
+        <div className="d-flex justify-content-center align-items-start col-md col-12">
+          <Form className="p-5 m-md-5 d-flex justify-content-center flex-column col-md col-12">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address </Form.Label>
               <Form.Control
@@ -342,7 +368,19 @@ function App() {
           </Form>
 
           <div className="p-5 m-md-5 ">
-            {viewData}
+          <h4 className="mb-5">Mock Database</h4>
+          <Table responsive="sm">
+            <thead>
+                <tr>
+                  <th>User Id</th>
+                  <th className="">Email</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {viewData}
+              </tbody>
+          </Table>
+            
           </div>
 
         </div>

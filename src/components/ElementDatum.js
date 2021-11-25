@@ -1,5 +1,5 @@
 import { useState, Fragment, useContext, useEffect } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Table } from 'react-bootstrap';
 import checkMark from '../images/checkMark.png';
 import wrongMark from '../images/wrongMark.png';
 import Context from '../Context.js';
@@ -150,7 +150,7 @@ export default function ElementDatum(prop){
  	function checkNewUser(){
  	  let result = true;
  	      for(let i = 0; i < data.length; ++i){
- 	        if(data[i].email == email){
+ 	        if(data[i].email == email ){
  	          result = false;
  	          break;
  	        }
@@ -183,151 +183,165 @@ export default function ElementDatum(prop){
 	}
 	
 	return (
-		<div>
-			{prop.datum.email}
-			<Button onClick={removeThisElement}>Remove</Button>
+		<tr>
+			<td className="text-center">
+				{prop.datum.id}
+			</td>
+			<td>
+				<div className="mr-auto pb-2 pl-2">{prop.datum.email}</div>
+				
+				<Button size="sm" className="ml-4" variant="warning" onClick={removeThisElement}>Remove</Button>
 
-			<Button variant="primary" onClick={handleShow}>
-			       Edit
-			     </Button>
+				<Button size="sm" className="ml-3" variant="primary" onClick={handleShow}>
+				       Edit
+				     </Button>
 
-			     <Modal show={show} onHide={handleClose}>
-			       <Modal.Header>
-			         <Modal.Title>Modal heading</Modal.Title>
-			       </Modal.Header>
-			       <Modal.Body>
-			       	<Form className="d-flex justify-content-center flex-column col-12">
-			       	  <Form.Group controlId="formBasicEmail">
-			       	    <Form.Label>Email address </Form.Label>
-			       	    <Form.Control
-			       	     type="email" 
-			       	     placeholder="Enter email"
-			       	     value={email}
-			       	     onChange={e => setEmail(e.target.value)}
-			       	     className="rounded-pill"
-			       	     />
-			       	    <Form.Text className="text-muted p-2 pl-4">
-			       	      {
-			       	        (!isNewUser) ? 
-			       	          <div>
-			       	            <img src={wrongMark} /> Email is already in database
-			       	          </div>
-			       	          
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Email is available
-			       	          </div>
-			       	      }
-			       	      {
-			       	        (!isMinMax) ? 
-			       	          <div>
-			       	            <img src={wrongMark} /> Minimum characters is 6 with maximum of 20
-			       	          </div>
-			       	          
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Minimum characters is 6 with maximum of 20
-			       	          </div>
+				     <Modal show={show} onHide={handleClose}>
+				       <Modal.Header>
+				         <Modal.Title>Modal heading</Modal.Title>
+				       </Modal.Header>
+				       <Modal.Body>
+				       	<Form className="d-flex justify-content-center flex-column col-12">
+				       	  <Form.Group controlId="formBasicEmail">
+				       	    <Form.Label>Edit email</Form.Label>
+				       	    <Form.Control
+				       	     type="email" 
+				       	     placeholder="Enter email"
+				       	     value={email}
+				       	     onChange={e => setEmail(e.target.value)}
+				       	     className="rounded-pill"
+				       	     />
+				       	    <Form.Text className="text-muted p-2 pl-4">
+				       	      {
+				       	        (!isNewUser) ? 
+				       	          <div>
+				       	            <img src={wrongMark} /> Email is already in database
+				       	          </div>
+				       	          
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Email is available
+				       	          </div>
+				       	      }
+				       	      {
+				       	        (!isMinMax) ? 
+				       	          <div>
+				       	            <img src={wrongMark} /> Minimum characters is 6 with maximum of 20
+				       	          </div>
+				       	          
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Minimum characters is 6 with maximum of 20
+				       	          </div>
 
-			       	      }
-			       	      
-			       	      {
-			       	        (!numExist) ?
-			       	          <div>
-			       	            <img src={wrongMark} /> Password must have a number
-			       	          </div>
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Password must have a number
-			       	          </div>
-			       	      }
-			       	      
-			       	      {
-			       	        (!upperExist) ?
-			       	          <div>
-			       	            <img src={wrongMark} /> Password must have an uppercase letter
-			       	          </div>
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Password must have an uppercase letter
-			       	          </div>
-			       	      }
-			       	      
-			       	      {
-			       	        (!lowerExist) ?
-			       	          <div>
-			       	            <img src={wrongMark} /> Password must have a lowercase letter
-			       	          </div>
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Password must have a lowercase letter
-			       	          </div>
-			       	      }
-			       	  
-			       	      {
-			       	        (specialExist) ?
-			       	          <div>
-			       	            <img src={wrongMark} /> Password must must not contain a special character
-			       	          </div>
-			       	        :
-			       	          <div>
-			       	            <img src={checkMark} /> Password must must not contain a special character
-			       	          </div>
-			       	      }
-			       	      <div className="mt-3">
-			       	        {
-			       	          (
-			       	            password.length < 10 && 
-			       	            password.length !== 0 && 
-			       	            isMinMax &&
-			       	            numExist &&
-			       	            upperExist &&
-			       	            lowerExist &&
-			       	            !specialExist
-			       	          ) ?
-			       	            <div>
-			       	              Password strength: Good
-			       	            </div>
-			       	          :
-			       	            (
-			       	              isMinMax &&
-			       	              numExist &&
-			       	              upperExist &&
-			       	              lowerExist &&
-			       	              !specialExist
-			       	            ) ?
-			       	              <div>
-			       	                Password strength: Excellent
-			       	              </div>
-			       	            :
-			       	              <div>Password strength: Weak/Incomplete Criteria</div>
-			       	        }
-			       	      </div>
-			       	    </Form.Text>
-			       	  </Form.Group>
+				       	      }
+				       	      
+				       	      {
+				       	        (!numExist) ?
+				       	          <div>
+				       	            <img src={wrongMark} /> Password must have a number
+				       	          </div>
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Password must have a number
+				       	          </div>
+				       	      }
+				       	      
+				       	      {
+				       	        (!upperExist) ?
+				       	          <div>
+				       	            <img src={wrongMark} /> Password must have an uppercase letter
+				       	          </div>
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Password must have an uppercase letter
+				       	          </div>
+				       	      }
+				       	      
+				       	      {
+				       	        (!lowerExist) ?
+				       	          <div>
+				       	            <img src={wrongMark} /> Password must have a lowercase letter
+				       	          </div>
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Password must have a lowercase letter
+				       	          </div>
+				       	      }
+				       	  
+				       	      {
+				       	        (specialExist) ?
+				       	          <div>
+				       	            <img src={wrongMark} /> Password must must not contain a special character
+				       	          </div>
+				       	        :
+				       	          <div>
+				       	            <img src={checkMark} /> Password must must not contain a special character
+				       	          </div>
+				       	      }
+				       	      <div className="mt-3">
+				       	        {
+				       	          (
+				       	            password.length < 10 && 
+				       	            password.length !== 0 && 
+				       	            isMinMax &&
+				       	            numExist &&
+				       	            upperExist &&
+				       	            lowerExist &&
+				       	            !specialExist
+				       	          ) ?
+				       	            <div>
+				       	              Password strength: Good
+				       	            </div>
+				       	          :
+				       	            (
+				       	              isMinMax &&
+				       	              numExist &&
+				       	              upperExist &&
+				       	              lowerExist &&
+				       	              !specialExist
+				       	            ) ?
+				       	              <div>
+				       	                Password strength: Excellent
+				       	              </div>
+				       	            :
+				       	              <div>Password strength: Weak/Incomplete Criteria</div>
+				       	        }
+				       	      </div>
+				       	    </Form.Text>
+				       	  </Form.Group>
 
-			       	  <Form.Group className="mt-3" controlId="formBasicPassword">
-			       	    <Form.Label>Password</Form.Label>
-			       	    <Form.Control 
-			       	    type="password" 
-			       	    placeholder="Password"
-			       	    value={password}
-			       	    onChange={e => setPassword(e.target.value)}
-			       	    className="rounded-pill"
-			       	    />
-			       	  </Form.Group> 
-			       	</Form>
-			       </Modal.Body>
-			       <Modal.Footer>
-			         <Button variant="secondary" onClick={handleClose}>
-			           Close
-			         </Button>
-			         <Button variant="primary" onClick={update}>
-			           Update
-			         </Button>
-			       </Modal.Footer>
-			     </Modal>
-		</div>
+				       	  <Form.Group className="mt-3" controlId="formBasicPassword">
+				       	    <Form.Label>Edit Password</Form.Label>
+				       	    <Form.Control 
+				       	    type="password" 
+				       	    placeholder="Password"
+				       	    value={password}
+				       	    onChange={e => setPassword(e.target.value)}
+				       	    className="rounded-pill"
+				       	    />
+				       	  </Form.Group> 
+				       	</Form>
+				       </Modal.Body>
+				       <Modal.Footer>
+				         <Button variant="secondary" onClick={handleClose}>
+				           Close
+				         </Button>
+				         {
+				         	(isActive) ?
+				         		<Button variant="primary" onClick={update}>
+				         		  Update
+				         		</Button>
+				         	:
+				         		<Button disabled variant="secondary" onClick={update}>
+				         		  Update
+				         		</Button>
+				         }
+				         
+				       </Modal.Footer>
+				     </Modal>
+			</td>
+		</tr>
 
 	)
 }
