@@ -12,8 +12,8 @@ ul {
   min-height:  100%;
 }
 
-.image {
-  cursor: pointer;
+img {
+  width: 1.5%;
 }
 
 .title-card {
