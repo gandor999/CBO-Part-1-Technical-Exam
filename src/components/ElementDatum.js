@@ -33,7 +33,7 @@ export default function ElementDatum(prop){
  	const handleShow = () => setShow(true);
 
  	useEffect(() => {
- 	  if(password.length > 6 && password.length < 20){
+ 	  if(password.length >= 6 && password.length <= 20){
  	    setIsMinMax(true);
  	  } else{
  	    setIsMinMax(false);
@@ -100,7 +100,7 @@ export default function ElementDatum(prop){
  	    }
  	}, [isMinMax, specialExist, password, numExist, upperExist, isNewUser, lowerExist])
 
- 	
+
 
  	function periodAfterAt(){
  	  let result = false;

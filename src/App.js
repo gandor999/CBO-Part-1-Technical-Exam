@@ -42,7 +42,7 @@ function App() {
 
   
   useEffect(() => {
-    if(password.length > 6 && password.length < 20){
+    if(password.length >= 6 && password.length <= 20){
       setIsMinMax(true);
     } else{
       setIsMinMax(false);
