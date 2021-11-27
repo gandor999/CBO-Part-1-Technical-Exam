@@ -85,6 +85,7 @@ function App() {
       email.includes('.') && 
       email[email.length - 1] !== '.' &&
       email[email.indexOf('@') + 1] !== '.' &&
+      email[email.indexOf('@') - 1] !== '.' &&
       periodAfterAt() &&
       email[0] !== '@'
     ){
