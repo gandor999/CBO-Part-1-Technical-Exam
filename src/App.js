@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 function App() {
   
-  let specialChars = `~!@#$%^&*()_+=-{}[]|\\'":;?/><.,`
+  let specialChars = `~!@#$%^&*()_+=-{}[]|\\'":;?/><.,` + '`';
 
   const [data, setData] = useState([{id: Math.floor(Math.random() * 10000), email: `admin@mail.com`, password: `1234567Aa`}]);
   const [isActive, setIsActive] = useState(true);
